@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PagedList;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -12,9 +13,16 @@ namespace WeBanHang.Areas.Admin.Controllers
     {
         ApplicationDbContext _dbConnect = new ApplicationDbContext();
         // GET: Admin/News
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
-            var items = _dbConnect.News.OrderByDescending(x => x.Id).ToList();
+            var pageSize = 10;
+            if (page == null){
+                page = 1;
+            }
+            var pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+            var items = _dbConnect.News.OrderByDescending(x => x.Id).ToPagedList(pageIndex,pageSize);
+            ViewBag.PageSize = pageSize;
+            ViewBag.page = page;
             return View(items);
         }
 
@@ -58,6 +66,7 @@ namespace WeBanHang.Areas.Admin.Controllers
                     news.ModifiedDate = DateTime.Now;
                     news.Alias = WeBanHang.Models.Commons.Filter.FilterChar(model.Title);
                     news.Title = model.Title;
+                    news.Image= model.Image;
                     news.Detail= model.Detail;
                     news.IsActive = model.IsActive;
                     news.Description = model.Description;
@@ -93,6 +102,25 @@ namespace WeBanHang.Areas.Admin.Controllers
                 item.IsActive = !item.IsActive; 
                 _dbConnect.SaveChanges();
                 return Json(new { success = true , isActive = item.IsActive});
+            }
+            return Json(new { success = false });
+        }
+        [HttpPost]
+        public ActionResult DeleteAll(string ids)
+        {
+            if (ids != "")
+            {
+                var items = ids.Split(',');
+                if (items!=null && items.Any())
+                {
+                    foreach (var item in items)
+                    {
+                        var obj = _dbConnect.News.Find(Convert.ToInt32(item));
+                        _dbConnect.News.Remove(obj);
+                        _dbConnect.SaveChanges();
+                    }
+                }
+                return Json(new { success = true });
             }
             return Json(new { success = false });
         }
