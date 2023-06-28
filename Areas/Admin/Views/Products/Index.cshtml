@@ -1,8 +1,8 @@
-﻿@model PagedList.PagedList<WeBanHang.Models.EF.New>
+﻿@model PagedList.PagedList<WeBanHang.Models.EF.Product>
 @using PagedList.Mvc;
 @using PagedList;
 @{
-    ViewBag.Title = "Danh sách tin tức";
+    ViewBag.Title = "Danh sách sản phẩm";
 
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
@@ -16,7 +16,7 @@
             <a href="/admin/home" class="nav-link">Trang chủ</a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-            <a href="/admin/news" class="nav-link">Tin tức</a>
+            <a href="/admin/products" class="nav-link">Sản phẩm</a>
         </li>
     </ul>
 }
@@ -25,12 +25,12 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>Quản lý tin tức</h1>
+                <h1>Quản lý sản phẩm</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item active">Tin tức</li>
+                    <li class="breadcrumb-item active">Sản phẩm</li>
                 </ol>
             </div>
         </div>
@@ -46,17 +46,17 @@
             <h3 class="card-title">@ViewBag.Title</h3>
 
             <div class="card-tools">
-                <a href="/admin/news/add" class="btn btn-primary">Thêm mới</a>
+                <a href="/admin/products/add" class="btn btn-primary">Thêm mới</a>
                 <a href="#" class="btn btn-danger" id="btnDeleteAll">Xóa</a>
             </div>
         </div>
         <div class="card-body">
             <div class="row">
                 <div class="col-6 mt-1 mb-4">
-                    @using (Html.BeginForm("index", "News", FormMethod.Get, new {}))
+                    @using (Html.BeginForm("index", "products", FormMethod.Get, new { }))
                     {
                         <div class="input-group">
-                             @Html.TextBox("searchText", new { }, new {@class = "form-control form-control-lg" })
+                            @Html.TextBox("searchText","", new {@class = "form-control form-control-lg" })
                             @*<input type="search" class="form-control form-control-lg" placeholder="Type your keywords here">*@
                             <div class="input-group-append">
                                 <button type="submit" class="btn btn-lg btn-default">
@@ -75,7 +75,10 @@
                         <th><input type="checkbox" id="selectAll" /></th>
                         <th>STT</th>
                         <th>Hình ảnh</th>
-                        <th>Tiêu đề</th>
+                        <th>Tên sản phẩm</th>
+                        <th>Tên danh mục</th>
+                        <th>Số lượng</th>
+                        <th>Giá</th>
                         <th>Ngày tạo</th>
                         <th class="text-center">Hiển thị</th>
                         <th style="width:150px"></th>
@@ -84,8 +87,8 @@
                 <tbody>
                     @if (Model != null && Model.Any())
                     {
-                       
-                        var i = (ViewBag.page-1)*ViewBag.PageSize + 1;
+
+                        var i = (ViewBag.page - 1) * ViewBag.PageSize + 1;
                         foreach (var item in Model)
                         {
                             var strCheck = item.IsActive ? "<i class='fa fa-check text-success'></i>" : "<i class='fas fa-times text-danger'></i>";
@@ -94,12 +97,17 @@
                                 <td>@i</td>
                                 <td><img src="@item.Image" width="50" /></td>
                                 <td width="500">@item.Title</td>
+                                <td width="500">@item.ProductCategory.Title</td>
+
+                                <td width="500">@item.Quantity</td>
+                                <td width="500">@item.Price</td>
+
                                 <td>@item.CreatedDate.ToString("dd/MM/yyyy")</td>
                                 <td class="text-center">
                                     <a href="#" data-id="@item.Id" class="btnActive">@Html.Raw(strCheck)</a>
                                 </td>
                                 <td>
-                                    <a href="/admin/news/edit/@item.Id" class="btn btn-sm btn-primary">Sửa</a>
+                                    <a href="/admin/products/edit/@item.Id" class="btn btn-sm btn-primary">Sửa</a>
                                     <a href="#" data-id="@item.Id" class="btn btn-sm btn-danger btnDelete">Xóa</a>
 
                                 </td>
@@ -124,7 +132,7 @@
 
                 </div>
             </div>
-            
+
 
         </div>
         <!-- /.card-body -->
@@ -175,7 +183,7 @@
                     var conf = confirm("Bạn có muốn xóa các bản ghi trên không?");
                     if (conf == true) {
                         $.ajax({
-                            url: '/admin/news/deleteAll',
+                            url: '/admin/products/deleteAll',
                             type: 'POST',
                             data: { ids: str },
                             success: function (rs) {
@@ -194,7 +202,7 @@
                 var conf = confirm("Bạn có muốn xóa bản ghi này không?");
                 if (conf == true) {
                     $.ajax({
-                        url: '/admin/news/delete',
+                        url: '/admin/products/delete',
                         type: 'POST',
                         data: { id: id },
                         success: function (rs) {
@@ -210,7 +218,7 @@
                 var btn = $(this);
                 var id = btn.data("id");
                 $.ajax({
-                    url: '/admin/news/IsActive',
+                    url: '/admin/products/IsActive',
                     type: 'POST',
                     data: { id: id },
                     success: function (rs) {
@@ -230,4 +238,3 @@
         });
     </script>
 }
-

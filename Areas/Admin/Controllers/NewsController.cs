@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI.WebControls;
 using WeBanHang.Models;
 using WeBanHang.Models.EF;
 
@@ -13,14 +14,19 @@ namespace WeBanHang.Areas.Admin.Controllers
     {
         ApplicationDbContext _dbConnect = new ApplicationDbContext();
         // GET: Admin/News
-        public ActionResult Index(int? page)
+        public ActionResult Index(string searchText, int? page)
         {
             var pageSize = 10;
             if (page == null){
                 page = 1;
             }
+            IEnumerable<New> items = _dbConnect.News.OrderByDescending(x => x.Id);
+            if (!string.IsNullOrEmpty(searchText))
+            {
+                items = items.Where(x=>x.Alias.Contains(searchText)|| x.Title.Contains(searchText));
+            }
             var pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
-            var items = _dbConnect.News.OrderByDescending(x => x.Id).ToPagedList(pageIndex,pageSize);
+            items = items.ToPagedList(pageIndex,pageSize);
             ViewBag.PageSize = pageSize;
             ViewBag.page = page;
             return View(items);

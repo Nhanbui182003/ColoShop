@@ -183,6 +183,8 @@
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Areas\Admin\Controllers\NewsController.cs" />
     <Compile Include="Areas\Admin\Controllers\PostController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ProductCategoryController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ProductsController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Migrations\202303211623574_CreatedDatabase.cs" />
     <Compile Include="Migrations\202303211623574_CreatedDatabase.designer.cs">
@@ -203,6 +205,14 @@
     <Compile Include="Migrations\202306230154004_ChangeLengthModels.cs" />
     <Compile Include="Migrations\202306230154004_ChangeLengthModels.designer.cs">
       <DependentUpon>202306230154004_ChangeLengthModels.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202306280351448_updateProductCategory.cs" />
+    <Compile Include="Migrations\202306280351448_updateProductCategory.designer.cs">
+      <DependentUpon>202306280351448_updateProductCategory.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202306280355563_addAliasToProductCategory.cs" />
+    <Compile Include="Migrations\202306280355563_addAliasToProductCategory.designer.cs">
+      <DependentUpon>202306280355563_addAliasToProductCategory.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\CommonAbstract.cs" />
@@ -3131,6 +3141,10 @@
     <Content Include="Areas\Admin\Views\Post\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Post\Add.cshtml" />
     <Content Include="Areas\Admin\Views\Post\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Products\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Products\Add.cshtml" />
+    <Content Include="Areas\Admin\Views\ProductCategory\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\ProductCategory\Add.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -3210,6 +3224,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202306230154004_ChangeLengthModels.resx">
       <DependentUpon>202306230154004_ChangeLengthModels.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202306280351448_updateProductCategory.resx">
+      <DependentUpon>202306280351448_updateProductCategory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202306280355563_addAliasToProductCategory.resx">
+      <DependentUpon>202306280355563_addAliasToProductCategory.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
