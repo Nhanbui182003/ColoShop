@@ -214,6 +214,10 @@
     <Compile Include="Migrations\202306280355563_addAliasToProductCategory.designer.cs">
       <DependentUpon>202306280355563_addAliasToProductCategory.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202307030205079_updatedb.cs" />
+    <Compile Include="Migrations\202307030205079_updatedb.designer.cs">
+      <DependentUpon>202307030205079_updatedb.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\CommonAbstract.cs" />
     <Compile Include="Models\Commons\Fillter.cs" />
@@ -3033,6 +3037,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Scripts\autoNumeric-1.9.45.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Areas\Admin\Views\web.config" />
@@ -3145,6 +3150,7 @@
     <Content Include="Areas\Admin\Views\Products\Add.cshtml" />
     <Content Include="Areas\Admin\Views\ProductCategory\Index.cshtml" />
     <Content Include="Areas\Admin\Views\ProductCategory\Add.cshtml" />
+    <Content Include="Areas\Admin\Views\Products\Edit.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -3156,6 +3162,32 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Uploads\images\0_gettyimages-1482020556-555-1681489360-703-width740height555.jpg" />
+    <Content Include="Uploads\images\1-14542056.jpg" />
+    <Content Include="Uploads\images\bat-doi-tuong-huy-hoai-rung-o-son-la-19413485.jpg" />
+    <Content Include="Uploads\images\diemchuan-15391590.jpeg" />
+    <Content Include="Uploads\images\ho-van-bup-18205608.jpg" />
+    <Content Include="Uploads\images\hung-00310411.jpg" />
+    <Content Include="Uploads\images\image-mac--18421798.jpg" />
+    <Content Include="Uploads\images\ipiccyimage-27-22244417.jpg" />
+    <Content Include="Uploads\images\titan-09354861.png" />
+    <Content Include="Uploads\images\u17-viet-nam-6-19402323.jpg" />
+    <Content Include="Uploads\images\untitled-14591800.png" />
+    <Content Include="Uploads\images\WIN_20230202_11_22_08_Pro.jpg" />
+    <Content Include="Uploads\images\xe1-16431463.png" />
+    <Content Include="Uploads\_thumbs\Images\0_gettyimages-1482020556-555-1681489360-703-width740height555.jpg" />
+    <Content Include="Uploads\_thumbs\Images\1-14542056.jpg" />
+    <Content Include="Uploads\_thumbs\Images\bat-doi-tuong-huy-hoai-rung-o-son-la-19413485.jpg" />
+    <Content Include="Uploads\_thumbs\Images\diemchuan-15391590.jpeg" />
+    <Content Include="Uploads\_thumbs\Images\ho-van-bup-18205608.jpg" />
+    <Content Include="Uploads\_thumbs\Images\hung-00310411.jpg" />
+    <Content Include="Uploads\_thumbs\Images\image-mac--18421798.jpg" />
+    <Content Include="Uploads\_thumbs\Images\ipiccyimage-27-22244417.jpg" />
+    <Content Include="Uploads\_thumbs\Images\titan-09354861.png" />
+    <Content Include="Uploads\_thumbs\Images\u17-viet-nam-6-19402323.jpg" />
+    <Content Include="Uploads\_thumbs\Images\untitled-14591800.png" />
+    <Content Include="Uploads\_thumbs\Images\WIN_20230202_11_22_08_Pro.jpg" />
+    <Content Include="Uploads\_thumbs\Images\xe1-16431463.png" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -3195,6 +3227,8 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Content\ckfinder\userfiles\" />
+    <Folder Include="Uploads\files\" />
+    <Folder Include="Uploads\flash\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -3230,6 +3264,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202306280355563_addAliasToProductCategory.resx">
       <DependentUpon>202306280355563_addAliasToProductCategory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202307030205079_updatedb.resx">
+      <DependentUpon>202307030205079_updatedb.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

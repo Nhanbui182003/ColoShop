@@ -81,9 +81,9 @@
                         <th>Giá</th>
                         <th>Ngày tạo</th>
                         <th class="text-center">Hiển thị</th>
-                        <th style="width:150px"></th>
+                        <th style="width:300px"></th>
                     </tr>
-                </thead>
+                </thead>    
                 <tbody>
                     @if (Model != null && Model.Any())
                     {
@@ -95,10 +95,9 @@
                             <tr id="trow_@item.Id">
                                 <td><input type="checkbox" class="cbkItem" value="@item.Id" /></td>
                                 <td>@i</td>
-                                <td><img src="@item.Image" width="50" /></td>
+                                <td><img src="@item.ProductImages.FirstOrDefault(x=>x.IsDefault==true).Image" width="50" /></td>
                                 <td width="500">@item.Title</td>
                                 <td width="500">@item.ProductCategory.Title</td>
-
                                 <td width="500">@item.Quantity</td>
                                 <td width="500">@item.Price</td>
 

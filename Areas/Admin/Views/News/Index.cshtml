@@ -56,7 +56,7 @@
                     @using (Html.BeginForm("index", "News", FormMethod.Get, new {}))
                     {
                         <div class="input-group">
-                             @Html.TextBox("searchText", new { }, new {@class = "form-control form-control-lg" })
+                             @Html.TextBox("searchText", "", new {@class = "form-control form-control-lg" })
                             @*<input type="search" class="form-control form-control-lg" placeholder="Type your keywords here">*@
                             <div class="input-group-append">
                                 <button type="submit" class="btn btn-lg btn-default">

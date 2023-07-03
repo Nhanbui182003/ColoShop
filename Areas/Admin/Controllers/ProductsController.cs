@@ -3,10 +3,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.DynamicData;
 using System.Web.Mvc;
 using System.Web.UI;
 using WeBanHang.Models;
 using WeBanHang.Models.EF;
+using WebGrease;
 
 namespace WeBanHang.Areas.Admin.Controllers
 {
@@ -35,7 +37,124 @@ namespace WeBanHang.Areas.Admin.Controllers
 
         public ActionResult Add()
         {
-            return View();
+            ViewBag.ProductCategory = new SelectList(db.ProductCategories.ToList(),"Id","Title");
+            return View();  
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Add(Product model, List<string> Images, List<int> rDefault) 
+        { 
+            if (ModelState.IsValid)
+            {
+                if (Images!=null && Images.Count>0)
+                {
+                    for (int i=0;i<Images.Count;i++) 
+                    { 
+                        if (i + 1 == rDefault[0])
+                        {
+                            model.ProductImages.Add(new ProductImage {
+                                ProductId = model.Id,
+                                Image = Images[i],
+                                IsDefault = true,
+                            });
+                        }
+                        else
+                        {
+                            model.ProductImages.Add(new ProductImage
+                            {
+                                ProductId = model.Id,
+                                Image = Images[i],
+                                IsDefault = false,
+                            });
+                        }
+                    }
+                }
+                model.CreatedDate = DateTime.Now;
+                model.ModifiedDate = DateTime.Now;
+                if (string.IsNullOrEmpty(model.SeoTitle))
+                {
+                    model.SeoTitle= model.Title;
+                }
+                    if (string.IsNullOrEmpty(model.Alias))
+                {
+                    model.Alias = WeBanHang.Models.Commons.Filter.FilterChar(model.Title);
+
+                }
+                db.Products.Add(model);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            ViewBag.ProductCategory = new SelectList(db.ProductCategories.ToList(), "Id", "Title");
+            return View(model);
+        }
+        public ActionResult Edit(int id)
+        {
+            ViewBag.ProductCategory = new SelectList(db.ProductCategories.ToList(), "Id", "Title");
+            var item = db.Products.Find(id);
+            return View(item);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(Product model)
+        {
+            if (ModelState.IsValid)
+            {
+                model.ModifiedDate = DateTime.Now;
+                model.Alias = WeBanHang.Models.Commons.Filter.FilterChar(model.Title);
+                db.Products.Attach(model);
+                db.Entry(model).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(model);
+        }
+        [HttpPost]
+        public ActionResult Delete(int id)
+        {
+            var item = db.Products.Find(id);
+            if (item != null)
+            {
+                db.Products.Remove(item);
+                db.SaveChanges();
+                return Json(new { success = true});
+
+            }
+            return Json(new { success = false});
+        }
+        [HttpPost]
+        public ActionResult IsActive(int id)
+        {
+            var item = db.Products.Find(id);
+            if (item != null)
+            {
+                item.IsActive = !item.IsActive;
+                db.SaveChanges();
+                return Json(new {success = true, IsActive= item.IsActive});
+            }
+            return Json(new { success = false });
+        }
+        [HttpPost]
+        public ActionResult DeleteAll(string ids)
+        {
+            if (ids != "")
+            {
+                var items = ids.Split(',');
+                if (items!=null && items.Any())
+                {
+                    foreach (var item in items)
+                    {
+                        var obj = db.Products.Find(Convert.ToInt32(item));
+                        db.Products.Remove(obj); 
+                        db.SaveChanges();
+                    }
+                    return Json(new { success = true });
+
+                }
+
+            }
+            return Json(new { success = false });
+        }
+
     }
 }

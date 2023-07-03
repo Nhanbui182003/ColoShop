@@ -15,7 +15,8 @@ namespace WeBanHang.Areas.Admin.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
         public ActionResult Index()
         {
-            return View();
+            var items = db.ProductCategories;
+            return View(items);
         }
         public ActionResult Add()
         {
