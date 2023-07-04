@@ -1,6 +1,8 @@
 ﻿using PagedList;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Web;
 using System.Web.DynamicData;
@@ -90,21 +92,48 @@ namespace WeBanHang.Areas.Admin.Controllers
         public ActionResult Edit(int id)
         {
             ViewBag.ProductCategory = new SelectList(db.ProductCategories.ToList(), "Id", "Title");
-            var item = db.Products.Find(id);
+            var item = db.Products.Include(x=>x.ProductImages).FirstOrDefault(x=>x.Id==id);
             return View(item);
         }
-
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Product model)
+        public ActionResult Edit(Product model, List<string> Images, List<int> rDefault)
         {
             if (ModelState.IsValid)
             {
+                var existingProduct = db.Products.Include(p => p.ProductImages).FirstOrDefault(p => p.Id == model.Id);
+                if (existingProduct != null)
+                {
+                    // Remove existing product images
+                    db.ProductImages.RemoveRange(existingProduct.ProductImages);
+                }
+                db.SaveChanges();
+                if (Images != null && Images.Count > 0)
+                {
+                    for (int i = 0; i < Images.Count; i++)
+                    {
+                        bool isDefault = (i + 1 == rDefault[0]);
+                        var productImage = new ProductImage
+                        {
+                            ProductId = model.Id,
+                            Image = Images[i],
+                            IsDefault = isDefault,
+                        };
+                        model.ProductImages.Add(productImage);
+                    }
+                }
+
                 model.ModifiedDate = DateTime.Now;
                 model.Alias = WeBanHang.Models.Commons.Filter.FilterChar(model.Title);
-                db.Products.Attach(model);
-                db.Entry(model).State = System.Data.Entity.EntityState.Modified;
+
+                db.Set<Product>().AddOrUpdate(model);
+                foreach (var productImage in model.ProductImages)
+                {
+                    db.Entry(productImage).State = EntityState.Added;
+                }
+
                 db.SaveChanges();
+
                 return RedirectToAction("Index");
             }
             return View(model);

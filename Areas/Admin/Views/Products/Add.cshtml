@@ -289,6 +289,7 @@
                 $(this).attr('id', 'trow_' + currentId);
                 $(this).find('td:first-child').text(currentId);
                 $(this).find('input[name="rDefault"]').val(currentId);
+                $(this).find('.btnDeleteImage').data('id', currentId);
                 if (lastId === 1 && currentId === 1) {
                     $(this).find('input[name="rDefault"]').prop('checked', true);
                 }
