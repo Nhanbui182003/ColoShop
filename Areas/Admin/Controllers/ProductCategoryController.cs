@@ -37,5 +37,18 @@ namespace WeBanHang.Areas.Admin.Controllers
             }
             return View();
         }
+        [HttpPost]
+        public ActionResult Delete(int id)
+        {
+            var item = db.ProductCategories.FirstOrDefault(c => c.Id == id);
+            if (item != null) 
+            {
+                db.ProductCategories.Remove(item);
+                db.SaveChanges();
+                return Json(new { success = true });
+            }
+            return Json(new { success = false });
+        }
+
     }
 }

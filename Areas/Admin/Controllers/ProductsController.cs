@@ -159,7 +159,19 @@ namespace WeBanHang.Areas.Admin.Controllers
             {
                 item.IsActive = !item.IsActive;
                 db.SaveChanges();
-                return Json(new {success = true, IsActive= item.IsActive});
+                return Json(new {success = true, isActive= item.IsActive});
+            }
+            return Json(new { success = false });
+        }
+        [HttpPost]
+        public ActionResult IsHome(int id)
+        {
+            var item = db.Products.Find(id);
+            if (item != null)
+            {
+                item.IsHome = !item.IsHome;
+                db.SaveChanges();
+                return Json(new { success = true, isHome = item.IsHome });
             }
             return Json(new { success = false });
         }

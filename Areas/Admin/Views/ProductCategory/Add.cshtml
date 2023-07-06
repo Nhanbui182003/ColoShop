@@ -68,6 +68,17 @@
 
                         </div>
                         <div class="form-group">
+                            <label for="exampleInputFile">File input</label>
+                            <div class="input-group">
+                                <div class="custom-file">
+                                    @Html.TextBoxFor(x => x.Icon, new { @id = "txtImage", @class = "form-control" })
+                                </div>
+                                <div class="input-group-append">
+                                    <input type="button" value="Tải ảnh" onclick="BrowerServer('txtImage');" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <label for="exampleInputPassword1">Seo title</label>
                             @Html.TextAreaFor(x => x.SeoTitle, new { @class = "form-control" })
                         </div>
@@ -97,3 +108,15 @@
 
 </section>
 <!-- /.content -->
+@section scripts {
+    <script>
+        function BrowerServer(field) {
+            var finder = new CKFinder();
+            finder.selectActionFunction = function (fileUrl) {
+                document.getElementById(field).value = fileUrl;
+            };
+            finder.popup();
+        }
+
+    </script>
+}

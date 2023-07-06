@@ -1,0 +1,80 @@
+﻿@model IEnumerable<WeBanHang.Models.EF.Product>
+
+<div class="col">
+    <div class="product_slider_container">
+        <div class="owl-carousel owl-theme product_slider">
+            @if (Model != null && Model.Any())
+            {
+                foreach (var item in Model)
+                {
+                    <!-- Slide  -->
+
+                    <div class="owl-item product_slider_item">
+                        <div class="product-item">
+                            <div class="product discount">
+                                <div class="product_image">
+                                    <img src="@item.ProductImages.FirstOrDefault(x=>x.IsDefault).Image" alt="">
+                                </div>
+                                <div class="favorite favorite_left"></div>
+                                <div class="product_info">
+                                    <h6 class="product_name"><a href="@item.Alias">@item.Title</a></h6>
+                                    @if (@item.PriceSale > 0)
+                                    {
+                                        <div class="product_price">@item.PriceSale</div>
+                                        <div class="product_price" style="color:#808080; text-decoration:line-through"><span>@item.Price</span></div>
+                                    }
+                                    else
+                                    {
+
+                                        <div class="product_price">@item.Price</div>
+
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            }
+
+        </div>
+
+        <!-- Slider Navigation -->
+
+        <div class="product_slider_nav_left product_slider_nav d-flex align-items-center justify-content-center flex-column">
+            <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        </div>
+        <div class="product_slider_nav_right product_slider_nav d-flex align-items-center justify-content-center flex-column">
+            <i class="fa fa-chevron-right" aria-hidden="true"></i>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    
+    //$(document).ready(function(){{
+    //    function formatCurrencyVND(value) {
+    //        return value.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+    //    }
+    //    var priceElements = document.getElementsByClassName('product_price');
+    //    for (var i = 0; i < priceElements.length; i++) {
+    //        var priceElement = priceElements[i];
+    //        var priceValue = parseFloat(priceElement.innerText);
+    //        var formattedPrice = formatCurrencyVND(priceValue);
+    //        priceElement.innerText = formattedPrice;
+    //    }
+
+    //    var pricesaleElements = document.querySelectorAll('.product_name > span');
+    //    for (var i = 0; i < pricesaleElements.length; i++) {
+    //        var priceElement = pricesaleElements[i];
+    //        var priceValue = parseFloat(priceElement.innerText);
+    //        var formattedPrice = formatCurrencyVND(priceValue);
+    //        priceElement.innerText = formattedPrice;
+    //    }
+
+    //}});
+   
+
+</script>

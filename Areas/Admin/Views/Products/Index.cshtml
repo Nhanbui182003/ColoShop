@@ -82,6 +82,7 @@
                         <th>Giá</th>
                         <th>Ngày tạo</th>
                         <th class="text-center">Hiển thị</th>
+                        <th class="text-center">Home</th>
                         <th style="width:300px"></th>
                     </tr>
                 </thead>
@@ -93,9 +94,12 @@
                         foreach (var item in Model)
                         {
                             var strCheck = item.IsActive ? "<i class='fa fa-check text-success'></i>" : "<i class='fas fa-times text-danger'></i>";
+                            var strCheckHome = item.IsHome ? "<i class='fa fa-check text-success'></i>" : "<i class='fas fa-times text-danger'></i>";
+
                             <tr id="trow_@item.Id">
                                 <td><input type="checkbox" class="cbkItem" value="@item.Id" /></td>
                                 <td>@i</td>
+                                
                                 <td><img class="imgproduct" data-id="@item.Id" src="@item.ProductImages.FirstOrDefault(x=>x.IsDefault==true).Image" width="50" /></td>
                                 <td width="500">@item.Title</td>
                                 <td width="500">@item.ProductCategory.Title</td>
@@ -105,6 +109,9 @@
                                 <td>@item.CreatedDate.ToString("dd/MM/yyyy")</td>
                                 <td class="text-center">
                                     <a href="#" data-id="@item.Id" class="btnActive">@Html.Raw(strCheck)</a>
+                                </td>
+                                <td class="text-center">
+                                    <a href="#" data-id="@item.Id" class="btnHome">@Html.Raw(strCheckHome)</a>
                                 </td>
                                 <td>
                                     <a href="/admin/products/edit/@item.Id" class="btn btn-sm btn-primary">Sửa</a>
@@ -251,6 +258,28 @@
                         debugger;
                         if (rs.success) {
                             if (rs.isActive) {
+
+                                btn.html("<i class='fa fa-check text-success'></i>");
+                            } else {
+
+                                btn.html("<i class='fas fa-times text-danger'></i>");
+                            }
+                        }
+                    }
+                });
+            });
+            $('body').on('click ', '.btnHome', function (e) {
+                e.preventDefault();
+                var btn = $(this);
+                var id = btn.data("id");
+                $.ajax({
+                    url: '/admin/products/IsHome',
+                    type: 'POST',
+                    data: { id: id },
+                    success: function (rs) {
+                        debugger;
+                        if (rs.success) {
+                            if (rs.isHome) {
 
                                 btn.html("<i class='fa fa-check text-success'></i>");
                             } else {
