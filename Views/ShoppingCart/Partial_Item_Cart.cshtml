@@ -1,0 +1,56 @@
+﻿@model IEnumerable<WeBanHang.Models.ShoppingCartItem>
+
+<table class="table">
+    <tr class="text-center">
+        <th>STT</th>
+        <th>Ảnh sản phẩm</th>
+        <th>Tên sản phẩm</th>
+        <th>Tên danh mục</th>
+        <th>Giá</th>
+        <th width="100">Số lượng</th>
+        <th>Thành tiền</th>
+        <th width="200"></th>
+    </tr>
+    @if (Model != null && Model.Any())
+    {
+        var i = 0;
+        var tongtien = decimal.Zero;
+        foreach (var item in Model)
+        {
+            i++;
+            <tr class="text-center">
+                <th>@i</th>
+                <th><img width="70" src="@item.ProductImg" /></th>
+                <th><a href="/chi-tiet/@item.Alias-@item.ProductId">@item.ProductName</a></th>
+                <th>@item.CategoryName</th>
+                <th>@WeBanHang.Common.Common.FormatNumber(item.Price, 0)</th>
+                <th><input type="number" class="form-control" id="ProductQuantity_@item.ProductId" value="@item.Quantity" min="1" /></th>
+                <th>@WeBanHang.Common.Common.FormatNumber(item.TotalPrice, 0)</th>
+                <th>
+                    <a href="" data-id="@item.ProductId" class="btn btn-sm btn-danger btnDeleteProduct">Xóa</a>
+                    <a href="" data-id="@item.ProductId" class="btn btn-sm btn-success btnUpdateProduct">Cập nhật</a>
+
+                </th>
+            </tr>
+            tongtien += item.TotalPrice;
+        }
+        <tr class="">
+            <th colspan="6" class="text-right">Tổng tiền:</th>
+            <th class="text-center">@WeBanHang.Common.Common.FormatNumber(tongtien, 0)</th>
+            <td></td>
+        </tr>
+    }
+    else
+    {
+        <tr>
+            <th class="text-center">Không có sản phẩm nào trong giỏ hàng!!!</th>
+            <th colspan="6" class="text-right"></th>
+            <th width="200"></th>
+
+        </tr>
+    }
+
+
+</table>
+
+

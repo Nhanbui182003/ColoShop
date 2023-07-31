@@ -14,6 +14,8 @@ using WebGrease;
 
 namespace WeBanHang.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Admin,Employee")]
+
     public class ProductsController : Controller
     {
         // GET: Admin/Product

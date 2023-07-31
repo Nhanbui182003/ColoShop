@@ -8,6 +8,8 @@ using WeBanHang.Models.EF;
 
 namespace WeBanHang.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Admin")]
+
     public class CategoryController : Controller
     {
         // GET: Admin/Category

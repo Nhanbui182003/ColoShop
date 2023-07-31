@@ -31,6 +31,7 @@ namespace WeBanHang.Models.EF
         public string Description { get; set; }
         [AllowHtml]
         public string Detail { get; set; }
+        public int ViewCount { get; set; }
         [StringLength(250)]
 
         public string Image { get; set; }

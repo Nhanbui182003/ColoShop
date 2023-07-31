@@ -9,6 +9,8 @@ using WeBanHang.Models.EF;
 
 namespace WeBanHang.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Admin")]
+
     public class ProductCategoryController : Controller
     {
         // GET: Admin/ProductCategory

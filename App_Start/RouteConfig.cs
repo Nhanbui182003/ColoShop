@@ -16,23 +16,53 @@ namespace WeBanHang
             routes.MapRoute(
                 name: "CategoryProduct",
                 url: "san-pham",
-                defaults: new { controller = "Products", action = "Index", alias = UrlParameter.Optional },
+                defaults: new { controller = "Products", action = "Index" },
                 namespaces: new[] { "WeBanHang.Controllers" }
             );
 
             routes.MapRoute(
-               name: "ProductsByProductCateId",
-               url: "{alias}-{id}",
-               defaults: new { controller = "Products", action = "ProductsByProductCateId", id = UrlParameter.Optional, alias = UrlParameter.Optional },
+                name: "ShoppingCart",
+                url: "gio-hang",
+                defaults: new { controller = "ShoppingCart", action = "Index" },
+                namespaces: new[] { "WeBanHang.Controllers" }
+            );
+
+            routes.MapRoute(
+               name: "DetailProduct",
+               url: "chi-tiet/{alias}-{id}",
+               defaults: new { controller = "Products", action = "Detail" },
                namespaces: new[] { "WeBanHang.Controllers" }
            );
+
+
+
+            routes.MapRoute(
+                name: "Products of category",
+                url: "danh-muc-san-pham-{alias}-{id}",
+                defaults: new { controller = "Products", action = "ProductsByProductCateId" },
+                namespaces: new[] { "WeBanHang.Controllers" }
+            );
+
+            routes.MapRoute(
+                name: "Checkout",
+                url: "thanh-toan",
+                defaults: new { controller = "ShoppingCart", action = "Checkout" },
+                namespaces: new[] { "WeBanHang.Controllers" }
+            );
 
             routes.MapRoute(
                name: "Contact",
                url: "lien-he",
-               defaults: new { controller = "Contact", action = "Index", alias = UrlParameter.Optional },
+               defaults: new { controller = "Contact", action = "Index", },
                namespaces: new[] { "WeBanHang.Controllers" }
            );
+
+            routes.MapRoute(
+                name: "HomePage",
+                url: "trang-chu",
+                defaults: new { controller = "Home", action = "Index"},
+                namespaces: new[] { "WeBanHang.Controllers" }
+            );
 
             routes.MapRoute(
                 name: "Default",

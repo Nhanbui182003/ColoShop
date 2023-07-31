@@ -10,6 +10,8 @@ using WeBanHang.Models.EF;
 
 namespace WeBanHang.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Admin,Employee")]
+
     public class NewsController : Controller
     {
         ApplicationDbContext _dbConnect = new ApplicationDbContext();

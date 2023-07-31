@@ -8,6 +8,8 @@ using WeBanHang.Models.EF;
 
 namespace WeBanHang.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Admin,Employee")]
+
     public class PostController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

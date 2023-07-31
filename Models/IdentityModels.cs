@@ -28,6 +28,7 @@ namespace WeBanHang.Models
             : base("DBWebBanHang", throwIfV1Schema: false)
         {
         }
+        public DbSet<Statistic> Statistics { get; set; }
 
         public DbSet<Category> Categories { get; set; }
         public DbSet<Advertising> Advs { get; set; }

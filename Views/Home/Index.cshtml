@@ -2,6 +2,9 @@
     ViewBag.Title = "Home Page";
 }
 
+<link rel="stylesheet" type="text/css" href="~/Content/Assets/styles/main_styles.css">
+
+
 <div class="fs_menu_overlay"></div>
 <div class="hamburger_menu">
     <div class="hamburger_close"><i class="fa fa-times" aria-hidden="true"></i></div>
@@ -194,37 +197,6 @@
                 </div>
             </div>
         </div>
-        <div class="row blogs_container">
-            <div class="col-lg-4 blog_item_col">
-                <div class="blog_item">
-                    <div class="blog_background" style="background-image:url(/Content/Assets/images/blog_1.jpg)"></div>
-                    <div class="blog_content d-flex flex-column align-items-center justify-content-center text-center">
-                        <h4 class="blog_title">Here are the trends I see coming this fall</h4>
-                        <span class="blog_meta">by admin | dec 01, 2017</span>
-                        <a class="blog_more" href="#">Read more</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 blog_item_col">
-                <div class="blog_item">
-                    <div class="blog_background" style="background-image:url(/Content/Assets/images/blog_2.jpg)"></div>
-                    <div class="blog_content d-flex flex-column align-items-center justify-content-center text-center">
-                        <h4 class="blog_title">Here are the trends I see coming this fall</h4>
-                        <span class="blog_meta">by admin | dec 01, 2017</span>
-                        <a class="blog_more" href="#">Read more</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 blog_item_col">
-                <div class="blog_item">
-                    <div class="blog_background" style="background-image:url(/Content/Assets/images/blog_3.jpg)"></div>
-                    <div class="blog_content d-flex flex-column align-items-center justify-content-center text-center">
-                        <h4 class="blog_title">Here are the trends I see coming this fall</h4>
-                        <span class="blog_meta">by admin | dec 01, 2017</span>
-                        <a class="blog_more" href="#">Read more</a>
-                    </div>
-                </div>
-            </div>
-        </div>
+        @Html.Action("Partial_New_Home","New")
     </div>
 </div>

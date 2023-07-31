@@ -56,6 +56,16 @@ namespace WeBanHang.Controllers
             var items = db.ProductCategories.ToList();
             return PartialView("_MenuLeft", items);
         }
+        public ActionResult Detail(string alias,int id)
+        {
+            var item = db.Products.FirstOrDefault(x => x.Id== id);
+            if (item!=null)
+            {
+                item.ViewCount += 1;
+                db.SaveChanges();
+            }
+            return View(item);
+        }
          
     }
 }

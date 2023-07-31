@@ -17,7 +17,6 @@ namespace WeBanHang.Models.EF
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        [Required]
         public string Code { get; set; }
         [Required]
         public string CustomerName { get; set; }
@@ -25,8 +24,10 @@ namespace WeBanHang.Models.EF
         public string Phone { get; set; }
         [Required]
         public string Address { get; set; }
+        public string Email { get; set; }
         public decimal TotalAmount { get; set; }
         public int Quantity { get; set; }
+        public int Payment {get; set; }
 
         public ICollection<OrderDetail> OrderDetails { get;set; }
     }

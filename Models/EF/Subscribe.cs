@@ -13,7 +13,8 @@ namespace WeBanHang.Models.EF
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-
+        [Required]
+        [EmailAddress]
         public string Email { get; set; }
         public DateTime CreatedDate { get; set; }
     }

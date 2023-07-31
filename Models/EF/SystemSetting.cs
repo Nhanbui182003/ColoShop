@@ -11,7 +11,6 @@ namespace WeBanHang.Models.EF
     public class SystemSetting
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [StringLength(50)]
         public string SettingKey { get; set; }
 

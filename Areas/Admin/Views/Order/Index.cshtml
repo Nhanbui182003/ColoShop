@@ -1,0 +1,126 @@
+﻿@model PagedList.PagedList<WeBanHang.Models.EF.Order>
+@using PagedList.Mvc;
+@using PagedList;
+@{
+    ViewBag.Title = "Danh sách đơn hàng";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<!-- Content Header (Page header) -->
+@section naviheader{
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="/admin/home" class="nav-link">Trang chủ</a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="/admin/order" class="nav-link">Danh sách đơn hàng</a>
+        </li>
+    </ul>
+}
+
+
+<!-- Main content -->
+<section class="content">
+
+    <!-- Default box -->
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Danh sách đơn hàng</h3>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-6 mt-1 mb-4">
+                    @using (Html.BeginForm("index", "Order", FormMethod.Get, new { }))
+                    {
+                        <div class="input-group">
+                            @Html.TextBox("searchText", "", new { @class = "form-control form-control-lg", @PlaceHolder = "Mã đơn hàng" })
+                            <div class="input-group-append">
+                                <button type="submit" class="btn btn-lg btn-default">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                    }
+                </div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>STT</th>
+                            <th>Mã đơn hàng</th>
+                            <th>Tên khách hàng</th>
+                            <th>Phone</th>
+                            <th>Tổng tiền</th>
+                            <th>Trạng thái</th>
+                            <th>Ngày tạo</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null && Model.Any())
+                        {
+                            var i = 0;
+                            foreach (var item in Model)
+                            {
+                                i++;
+                                <tr>
+                                    <td>@i</td>
+                                    <td>@item.Code</td>
+                                    <td>@item.CustomerName</td>
+                                    <td>@item.Phone</td>
+                                    <td>@WeBanHang.Common.Common.FormatNumber(item.TotalAmount, 0)</td>
+                                    <td>@(item.Payment==1?"Chờ thanh toán":"Đã thanh toán")</td>
+                                    <td>@item.CreatedDate.ToString("dd/MM/yyyy")</td>
+                                    <td>
+                                        <a href="/admin/order/view/@item.Id" class="btn btn-sm btn-success">Xem</a>
+                                        @if (item.Payment == 1)
+                                        {
+                                            <a href="#" id="a_@item.Id" class="btn btn-sm btn-primary btnUpdatePayment" data-id="@item.Id">Xác nhận thanh toán</a>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="row">
+                <div class="col-12" style="text-align:center">
+                    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+
+                </div>
+            </div>
+        </div>
+        <!-- /.card-body -->
+        <div class="card-footer">
+            Footer
+        </div>
+        <!-- /.card-footer-->
+    </div>
+    <!-- /.card -->
+
+</section>
+<!-- /.content -->
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            $('body').on('click', ".btnUpdatePayment", function () {
+                var id = $(this).data("id");
+                var conf = confirm("Xác nhận đơn hàng đã được thanh toán!");
+                if (conf == true) {
+                    $.ajax({
+                        url: '/admin/order/updatepayment',
+                        type: 'POST',
+                        data: { id: id },
+                        success: function (rs) {
+                            if (rs.success) {
+                                location.reload();
+                            }
+                        }
+                    })
+                }
+            })
+        });
+    </script>
+}
