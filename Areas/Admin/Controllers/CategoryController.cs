@@ -58,6 +58,7 @@ namespace WeBanHang.Areas.Admin.Controllers
                     category.ModifiedDate = DateTime.Now;
                     category.Alias = WeBanHang.Models.Commons.Filter.FilterChar(model.Title);
                     category.Title = model.Title;
+                    category.Link= model.Link;
                     category.Description = model.Description;
                     category.SeoKeywords= model.SeoKeywords;
                     category.SeoDescription= model.SeoDescription;

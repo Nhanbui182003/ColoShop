@@ -1,0 +1,75 @@
+﻿@model PagedList.PagedList<WeBanHang.Models.EF.New>
+@using PagedList.Mvc;
+@using PagedList;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+<link rel="stylesheet" type="text/css" href="~/Content/Assets/styles/main_styles.css">
+
+<style>
+    .new-section_contain {
+        margin-top: 160px;
+    }
+
+    .new_title {
+        font-size: 36px;
+        border-bottom: 1px solid;
+        padding-bottom: 20px;
+        margin-bottom: 20px;
+    }
+
+    .img-box img {
+        width: 155px;
+        height: 100px;
+    }
+
+    .content-box h3 a {
+        color: black;
+    }
+
+        .content-box h3 a:hover {
+            color: deepskyblue;
+        }
+</style>
+
+<div class="container new-section_contain">
+    <div class="row">
+        <div class="col-md-12">
+            <h1 class="new_title">Tin tức</h1>
+
+        </div>
+
+    </div>
+
+    @if (Model != null && Model.Any())
+    {
+        foreach (var item in Model)
+        {
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="img-box">
+                        <a href="/chi-tiet-tin-tuc/@item.Alias-@item.Id" title="@item.Title"><img src="@item.Image" alt="@item.Title" /></a>
+                    </div>
+                </div>
+                <div class="col-md-9">
+                    <div class="content-box">
+                        <h3><a href="/chi-tiet-tin-tuc/@item.Alias-@item.Id" title="@item.Title">@item.Title</a></h3>
+                        <div class="description">
+                            @item.Description
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr />
+        }
+        <div class="row">
+            <div class="col-12 d-flex justify-content-center">
+                @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+            </div>
+        </div>
+    }
+
+</div>
+

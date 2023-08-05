@@ -1,0 +1,59 @@
+﻿@model WeBanHang.Models.EF.Post
+@{
+    ViewBag.Title = "Chi tiết bài viết";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+<link rel="stylesheet" type="text/css" href="~/Content/Assets/styles/main_styles.css">
+
+<style>
+    .new-section_contain {
+        margin-top: 160px;
+    }
+
+    .new_title {
+        font-size: 36px;
+        border-bottom: 1px solid;
+        padding-bottom: 20px;
+        margin-bottom: 20px;
+    }
+
+    .img-box img {
+        width: 155px;
+        height: 100px;
+    }
+
+    .content-box h3 a {
+        color: black;
+    }
+
+        .content-box h3 a:hover {
+            color: deepskyblue;
+        }
+</style>
+
+<div class="container new-section_contain">
+
+
+    @if (Model != null)
+    {
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="new_title">@Model.Title</h1>
+
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <strong>@Model.Description</strong>
+
+            </div>
+            <div class="col-md-12">
+                @Html.Raw(Model.Detail)
+            </div>
+        </div>
+    }
+
+</div>
+
